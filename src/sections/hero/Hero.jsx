@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 import MagneticButton from '../../components/common/MagneticButton';
+import CloudinaryVideo from '../../components/common/CloudinaryVideo';
 
 const Hero = () => {
     const sectionRef = useRef(null);
@@ -52,14 +53,10 @@ const Hero = () => {
             <div ref={lightRef} className="hero-light-follow" />
 
             {/* VIDEO BACKGROUND */}
-            <video
-                src="/videos/hero-launch.mp4"
-                className='hero-video'
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
+            <CloudinaryVideo
+                publicId="hero-launch_m46mas"
+                className="hero-video"
+                loop={true}
             />
 
             {/* AURA EFFECTS */}

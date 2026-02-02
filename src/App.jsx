@@ -14,10 +14,9 @@ import VideoPreloader from './components/common/VideoPreloader.jsx'
 
 function App() {
   const videoAssets = [
-    "/videos/hero-launch.mp4",
-    "/videos/Aediton_player_video.mp4",
-    "/videos/Alsojoyy_player_video.mp4"
-    // Add other character videos here
+    "https://res.cloudinary.com/dun5g7rad/video/upload/f_auto,q_auto/hero-launch_m46mas.mp4",
+    "https://res.cloudinary.com/dun5g7rad/video/upload/f_auto,q_auto/Aediton_player_video_l7c4xh.mp4",
+    "https://res.cloudinary.com/dun5g7rad/video/upload/f_auto,q_auto/Alsojoyy_player_video_dwav8d.mp4"
   ];
 
   useEffect(() => {

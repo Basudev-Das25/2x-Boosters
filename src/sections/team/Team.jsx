@@ -9,7 +9,7 @@ const teamMembers = [
   {
     name: "AEDITON",
     role: "Duelist",
-    videoSrc: "/videos/Aediton_player_video.mp4",
+    cloudinaryId: "Aediton_player_video_l7c4xh",
     stats: { "K/D": "1.42", "HS%": "34%", "Main": "Jett" },
     bio: "Aggressive entry fragger known for creating space and highlight-reel plays."
   },
@@ -24,21 +24,21 @@ const teamMembers = [
   {
     name: "CUPCAKE",
     role: "Initiator",
-    videoSrc: "/videos/hero-launch.mp4",
+    cloudinaryId: "hero-launch_m46mas",
     stats: { "K/D": "1.25", "ADR": "156", "Main": "Sova" },
     bio: "Info gatherer extraordinaire. Sets up the team for success with perfect lineups."
   },
   {
     name: "ALSOJOYY",
     role: "Sentinel",
-    videoSrc: "/videos/Alsojoyy_player_video.mp4",
+    cloudinaryId: "Alsojoyy_player_video_dwav8d",
     stats: { "K/D": "1.15", "Clutch": "18%", "Main": "Killjoy" },
     bio: "The anchor of the defense. Locks down sites and punishes overaggression."
   },
   {
     name: "EXEC",
     role: "Flex",
-    videoSrc: "/videos/hero-launch.mp4",
+    cloudinaryId: "hero-launch_m46mas",
     stats: { "K/D": "1.30", "Flex": "Yes", "Main": "Kay/O" },
     bio: "Versatile player capable of filling any role the team needs at a high level."
   },

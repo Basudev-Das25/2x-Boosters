@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./DetailModal.css";
+import CloudinaryVideo from "../common/CloudinaryVideo";
 
 const DetailModal = ({ isOpen, onClose, data }) => {
     const modalRef = useRef(null);
@@ -15,14 +16,17 @@ const DetailModal = ({ isOpen, onClose, data }) => {
             setVideoEnded(false);
             setIsLoading(true);
 
-            if (data?.videoSrc && videoRef.current) {
+            // Handle both traditional videoSrc and Cloudinary cloudinaryId
+            const hasVideo = !!(data?.videoSrc || data?.cloudinaryId);
+
+            if (hasVideo && videoRef.current) {
                 const video = videoRef.current;
                 video.currentTime = 0;
 
                 const handleCanPlay = () => {
                     setIsLoading(false);
                     video.play().catch(() => {
-                        // playback failed (user interaction needed or muted issues)
+                        // playback failed
                     });
                 };
 
@@ -31,14 +35,14 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                     handleCanPlay();
                 } else {
                     video.addEventListener('canplay', handleCanPlay);
-                    video.addEventListener('loadeddata', handleCanPlay); // Fallback
+                    video.addEventListener('loadeddata', handleCanPlay);
                 }
 
                 return () => {
                     video.removeEventListener('canplay', handleCanPlay);
                     video.removeEventListener('loadeddata', handleCanPlay);
                 }
-            } else {
+            } else if (!hasVideo) {
                 setIsLoading(false);
             }
         }
@@ -66,8 +70,7 @@ const DetailModal = ({ isOpen, onClose, data }) => {
             }, modalRef);
             return () => ctx.revert();
         } else {
-            // Exit animation handled locally or just fade out by unmounting if managed by parent
-            // but good to have nice exit
+            // Exit animation
             gsap.to(modalRef.current, { opacity: 0, duration: 0.3 });
         }
     }, [isOpen]);
@@ -93,12 +96,14 @@ const DetailModal = ({ isOpen, onClose, data }) => {
 
     if (!isOpen || !data) return null;
 
+    const isVideo = !!(data.videoSrc || data.cloudinaryId);
+
     return (
         <div className="modal-backdrop" ref={modalRef} onClick={onClose}>
             <div
                 className="modal-container"
                 onClick={(e) => e.stopPropagation()}
-                data-cinematic={!!data.videoSrc}
+                data-cinematic={isVideo}
             >
                 {/* CLOSE BUTTON */}
                 <button className="modal-close" onClick={onClose}>
@@ -110,7 +115,14 @@ const DetailModal = ({ isOpen, onClose, data }) => {
 
                 {/* MEDIA LAYER */}
                 <div className="modal-media">
-                    {data.videoSrc ? (
+                    {data.cloudinaryId ? (
+                        <CloudinaryVideo
+                            publicId={data.cloudinaryId}
+                            videoRef={videoRef}
+                            className="modal-video"
+                            onEnded={handleVideoEnd}
+                        />
+                    ) : data.videoSrc ? (
                         <video
                             ref={videoRef}
                             src={data.videoSrc}
@@ -126,7 +138,7 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                 </div>
 
                 {/* GLASS LAYER (Appears after video or immediately if no video) */}
-                <div className={`modal-glass-layer ${!data.videoSrc ? 'visible' : ''}`}>
+                <div className={`modal-glass-layer ${!isVideo ? 'visible' : ''}`}>
                     <div className="modal-info">
                         <h2>{data.name}</h2>
                         <p className="modal-role">{data.role}</p>
