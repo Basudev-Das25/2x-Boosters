@@ -10,28 +10,28 @@ const creators = [
   {
     name: "Creator One",
     platform: "YouTube / Twitch",
-    imageSrc: "src/sections/hero/Jett_angry-removebg-preview.png", // Placeholder
+    imageSrc: "/images/characters/Jett_angry-removebg-preview.png", // Placeholder
     stats: { "Subs": "1.2M", "Views": "500M+" },
     bio: "Top tier content creator focused on educational gameplay and high-level analysis."
   },
   {
     name: "Creator Two",
     platform: "YouTube",
-    imageSrc: "src/sections/hero/yoru_valorant-removebg-preview.png",
+    imageSrc: "/images/characters/yoru_valorant-removebg-preview.png",
     stats: { "Subs": "850K", "Views": "200M+" },
     bio: "Known for insane highlight montages and community events."
   },
   {
     name: "Creator Three",
     platform: "Twitch",
-    imageSrc: "src/sections/hero/clove_-_valorant-removebg-preview.png",
+    imageSrc: "/images/characters/clove_-_valorant-removebg-preview.png",
     stats: { "Followers": "2M", "Avg Viewers": "15K" },
     bio: "Variety streamer with a focus on competitive FPS titles."
   },
   {
     name: "Creator Four",
     platform: "YouTube / Kick",
-    imageSrc: "src/sections/hero/Sage_angry-removebg-preview.png",
+    imageSrc: "/images/characters/Sage_angry-removebg-preview.png",
     stats: { "Subs": "500K", "Followers": "300K" },
     bio: "Rising star in the scene, bringing fresh energy and unique content ideas."
   },

@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: "AEDITON",
     role: "Duelist",
-    videoSrc: "src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4", // Placeholder - reusing existing vid
+    videoSrc: "/videos/hero-launch.mp4", // Placeholder - reusing existing vid
     stats: { "K/D": "1.42", "HS%": "34%", "Main": "Jett" },
     bio: "Aggressive entry fragger known for creating space and highlight-reel plays."
   },
@@ -16,28 +16,28 @@ const teamMembers = [
     name: "BERLIN [IGL]",
     role: "Controller",
     // videoSrc: "...", // Optional: leave undefined to test image fallback
-    imageSrc: "src/sections/hero/clove_-_valorant-removebg-preview.png", // Placeholder
+    imageSrc: "/images/characters/clove_-_valorant-removebg-preview.png", // Placeholder
     stats: { "K/D": "1.10", "AST": "12.4", "Main": "Omen" },
     bio: "The mastermind behind the strategies. Calm under pressure and precise with utility."
   },
   {
     name: "CUPCAKE",
     role: "Initiator",
-    videoSrc: "src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4",
+    videoSrc: "/videos/hero-launch.mp4",
     stats: { "K/D": "1.25", "ADR": "156", "Main": "Sova" },
     bio: "Info gatherer extraordinaire. Sets up the team for success with perfect lineups."
   },
   {
     name: "ALSOJOYY",
     role: "Sentinel",
-    imageSrc: "src/sections/hero/Sage_angry-removebg-preview.png",
+    imageSrc: "/images/characters/Sage_angry-removebg-preview.png",
     stats: { "K/D": "1.15", "Clutch": "18%", "Main": "Killjoy" },
     bio: "The anchor of the defense. Locks down sites and punishes overaggression."
   },
   {
     name: "EXEC",
     role: "Flex",
-    videoSrc: "src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4",
+    videoSrc: "/videos/hero-launch.mp4",
     stats: { "K/D": "1.30", "Flex": "Yes", "Main": "Kay/O" },
     bio: "Versatile player capable of filling any role the team needs at a high level."
   },

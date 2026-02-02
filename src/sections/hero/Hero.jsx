@@ -73,7 +73,7 @@ const Hero = () => {
 
             {/* VIDEO BACKGROUND */}
             <video
-                src="src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4"
+                src="/videos/hero-launch.mp4"
                 className='hero-video'
                 autoPlay
                 muted
