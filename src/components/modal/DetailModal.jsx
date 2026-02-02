@@ -13,6 +13,8 @@ const DetailModal = ({ isOpen, onClose, data }) => {
     const [liveStats, setLiveStats] = useState(null);
     const [loadingLive, setLoadingLive] = useState(false);
     const [agentArt, setAgentArt] = useState(null);
+    const hasRevealedRef = useRef(false);
+    const revealTimeoutRef = useRef(null);
 
     // Reset state when data changes or opens
     useEffect(() => {
@@ -21,6 +23,7 @@ const DetailModal = ({ isOpen, onClose, data }) => {
             setIsLoading(true);
             setLiveStats(null);
             setAgentArt(null);
+            hasRevealedRef.current = false;
 
             // Fetch live stats if Riot ID is available
             if (data?.riotId) {
@@ -62,10 +65,16 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                         // playback failed
                     });
 
-                    // Trigger the cinematic reveal after a short delay since video is now looping
-                    setTimeout(() => {
-                        handleCinematicReveal();
-                    }, 1500);
+                    // Trigger the cinematic reveal only once after a short delay
+                    if (!hasRevealedRef.current) {
+                        clearTimeout(revealTimeoutRef.current);
+                        revealTimeoutRef.current = setTimeout(() => {
+                            if (isOpen && !hasRevealedRef.current) {
+                                handleCinematicReveal();
+                                hasRevealedRef.current = true;
+                            }
+                        }, 1500);
+                    }
                 };
 
                 // Check if already ready
@@ -79,9 +88,11 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                 return () => {
                     video.removeEventListener('canplay', handleCanPlay);
                     video.removeEventListener('loadeddata', handleCanPlay);
+                    clearTimeout(revealTimeoutRef.current);
                 }
             } else if (!hasVideo) {
                 setIsLoading(false);
+                handleCinematicReveal();
             }
         }
     }, [isOpen, data]);
