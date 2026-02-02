@@ -7,15 +7,39 @@ const DetailModal = ({ isOpen, onClose, data }) => {
     const contentRef = useRef(null);
     const videoRef = useRef(null);
     const [videoEnded, setVideoEnded] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Reset state when data changes or opens
     useEffect(() => {
         if (isOpen) {
             setVideoEnded(false);
-            // If there's a video, play it
-            if (videoRef.current) {
-                videoRef.current.currentTime = 0;
-                videoRef.current.play();
+            setIsLoading(true);
+
+            if (data?.videoSrc && videoRef.current) {
+                const video = videoRef.current;
+                video.currentTime = 0;
+
+                const handleCanPlay = () => {
+                    setIsLoading(false);
+                    video.play().catch(() => {
+                        // playback failed (user interaction needed or muted issues)
+                    });
+                };
+
+                // Check if already ready
+                if (video.readyState >= 3) {
+                    handleCanPlay();
+                } else {
+                    video.addEventListener('canplay', handleCanPlay);
+                    video.addEventListener('loadeddata', handleCanPlay); // Fallback
+                }
+
+                return () => {
+                    video.removeEventListener('canplay', handleCanPlay);
+                    video.removeEventListener('loadeddata', handleCanPlay);
+                }
+            } else {
+                setIsLoading(false);
             }
         }
     }, [isOpen, data]);
@@ -93,6 +117,7 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                             className="modal-video"
                             muted
                             playsInline
+                            preload="auto"
                             onEnded={handleVideoEnd}
                         />
                     ) : (

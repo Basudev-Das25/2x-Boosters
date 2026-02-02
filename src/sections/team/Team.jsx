@@ -9,7 +9,7 @@ const teamMembers = [
   {
     name: "AEDITON",
     role: "Duelist",
-    videoSrc: "/videos/hero-launch.mp4", // Placeholder - reusing existing vid
+    videoSrc: "/videos/Aediton_player_video.mp4",
     stats: { "K/D": "1.42", "HS%": "34%", "Main": "Jett" },
     bio: "Aggressive entry fragger known for creating space and highlight-reel plays."
   },
@@ -31,7 +31,7 @@ const teamMembers = [
   {
     name: "ALSOJOYY",
     role: "Sentinel",
-    imageSrc: "/images/characters/Sage_angry-removebg-preview.png",
+    videoSrc: "/videos/Alsojoyy_player_video.mp4",
     stats: { "K/D": "1.15", "Clutch": "18%", "Main": "Killjoy" },
     bio: "The anchor of the defense. Locks down sites and punishes overaggression."
   },

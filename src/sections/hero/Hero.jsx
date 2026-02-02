@@ -59,6 +59,7 @@ const Hero = () => {
                 muted
                 loop
                 playsInline
+                preload="auto"
             />
 
             {/* AURA EFFECTS */}

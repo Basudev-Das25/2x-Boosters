@@ -10,7 +10,15 @@ import Creators from './sections/creators/Creators.jsx'
 import Footer from './sections/Footer/Footer.jsx'
 import Cursor from './components/cursor/Cursor.jsx'
 
+import VideoPreloader from './components/common/VideoPreloader.jsx'
+
 function App() {
+  const videoAssets = [
+    "/videos/hero-launch.mp4",
+    "/videos/Aediton_player_video.mp4",
+    "/videos/Alsojoyy_player_video.mp4"
+    // Add other character videos here
+  ];
 
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
@@ -60,6 +68,7 @@ function App() {
   return (
     <>
       <Cursor />
+      <VideoPreloader videoPaths={videoAssets} />
       <Navbar />
       <main>
         <Hero />
