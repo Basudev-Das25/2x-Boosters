@@ -1,0 +1,135 @@
+.footer {
+  background: linear-gradient(to bottom,
+      black,
+      var(--primary-color));
+  color: var(--text-main);
+  padding: 120px 24px 40px;
+}
+
+/* CONTACT SECTION */
+.footer-contact {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+
+  padding: 48px 32px;
+  border-radius: 4px;
+
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  will-change: transform, opacity;
+}
+
+.footer-contact h2 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.footer-contact p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+}
+
+/* EMAIL */
+.contact-info {
+  margin-bottom: 28px;
+}
+
+.contact-info span {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: "Inter", sans-serif;
+  margin-bottom: 6px;
+}
+
+.contact-info a {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.contact-info a:hover {
+  color: var(--secondary-color);
+}
+
+/* SOCIALS */
+.contact-socials {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.contact-socials a {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+
+.contact-socials a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: var(--secondary-color);
+  transition: width 0.25s ease;
+}
+
+.contact-socials a:hover {
+  color: var(--text-main);
+}
+
+.contact-socials a:hover::after {
+  width: 100%;
+}
+
+/* DIVIDER */
+.footer-divider {
+  max-width: 1100px;
+  margin: 80px auto 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* BOTTOM BAR */
+.footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

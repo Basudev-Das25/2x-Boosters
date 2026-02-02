@@ -1,0 +1,158 @@
+import { useEffect, useRef, useState } from "react";
+import "./Team.css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import DetailModal from "../../components/modal/DetailModal";
+
+const teamMembers = [
+  {
+    name: "AEDITON",
+    role: "Duelist",
+    videoSrc: "src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4", // Placeholder - reusing existing vid
+    stats: { "K/D": "1.42", "HS%": "34%", "Main": "Jett" },
+    bio: "Aggressive entry fragger known for creating space and highlight-reel plays."
+  },
+  {
+    name: "BERLIN [IGL]",
+    role: "Controller",
+    // videoSrc: "...", // Optional: leave undefined to test image fallback
+    imageSrc: "src/sections/hero/clove_-_valorant-removebg-preview.png", // Placeholder
+    stats: { "K/D": "1.10", "AST": "12.4", "Main": "Omen" },
+    bio: "The mastermind behind the strategies. Calm under pressure and precise with utility."
+  },
+  {
+    name: "CUPCAKE",
+    role: "Initiator",
+    videoSrc: "src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4",
+    stats: { "K/D": "1.25", "ADR": "156", "Main": "Sova" },
+    bio: "Info gatherer extraordinaire. Sets up the team for success with perfect lineups."
+  },
+  {
+    name: "ALSOJOYY",
+    role: "Sentinel",
+    imageSrc: "src/sections/hero/Sage_angry-removebg-preview.png",
+    stats: { "K/D": "1.15", "Clutch": "18%", "Main": "Killjoy" },
+    bio: "The anchor of the defense. Locks down sites and punishes overaggression."
+  },
+  {
+    name: "EXEC",
+    role: "Flex",
+    videoSrc: "src/sections/hero/Official Launch Cinematic Trailer - VALORANT.mp4",
+    stats: { "K/D": "1.30", "Flex": "Yes", "Main": "Kay/O" },
+    bio: "Versatile player capable of filling any role the team needs at a high level."
+  },
+];
+
+const TeamCard = ({ member, onClick }) => {
+  const cardRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = -(y - centerY) / 18;
+    const rotateY = (x - centerX) / 18;
+
+    card.style.transform = `
+      perspective(1000px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      translateY(-6px)
+    `;
+  };
+
+  const resetTilt = () => {
+    cardRef.current.style.transform = `
+      perspective(1000px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translateY(0)
+    `;
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className="team-card team-card-animate"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetTilt}
+      onClick={() => onClick(member)}
+    >
+      <div className="player-image" />
+
+      <div className="player-info">
+        <h3>{member.name}</h3>
+        <span>{member.role}</span>
+      </div>
+    </div>
+  );
+};
+
+const Team = () => {
+  const sectionRef = useRef(null);
+  const [selectedMember, setSelectedMember] = useState(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".team-card-animate",
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9,
+          filter: "blur(10px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.2,
+          ease: "power4.out",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <>
+      <section id="team" ref={sectionRef} className="team">
+        <div className="team-header">
+          <h2>Pro Team</h2>
+          <p>Elite roster competing at the highest level</p>
+        </div>
+
+        <div className="team-grid">
+          {teamMembers.map((player, index) => (
+            <TeamCard
+              key={index}
+              member={player}
+              onClick={setSelectedMember}
+            />
+          ))}
+        </div>
+      </section>
+
+      <DetailModal
+        isOpen={!!selectedMember}
+        onClose={() => setSelectedMember(null)}
+        data={selectedMember}
+      />
+    </>
+  );
+};
+
+export default Team;

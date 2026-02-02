@@ -1,0 +1,24 @@
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px var(--secondary-color);
+    will-change: transform;
+}
+
+/* Hide default cursor on body */
+body {
+    cursor: none !important;
+}
+
+a,
+button {
+    cursor: none !important;
+}

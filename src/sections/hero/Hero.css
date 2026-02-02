@@ -1,0 +1,294 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  background: var(--primary-color);
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  z-index: 0;
+  filter: brightness(0.55) contrast(1.05);
+}
+
+/* SHARED BG */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center bottom;
+  pointer-events: none;
+  top: 10%;
+}
+
+
+/* DEPTH CONTROL */
+.hero-bg.image1 {
+  z-index: 1;
+  opacity: 1;
+  background: url(./Jett_angry-removebg-preview.png);
+  background-repeat: no-repeat;
+  background-size: 300px;
+  left: 20%;
+}
+
+.hero-bg.image2 {
+  z-index: 2;
+  opacity: 1;
+  background: url(./clove_-_valorant-removebg-preview.png);
+  background-repeat: no-repeat;
+  background-size: 325px;
+  left: 30%;
+  top: 30px;
+}
+
+.hero-bg.image3 {
+  z-index: 3;
+  opacity: 1;
+  background: url(./Sage_angry-removebg-preview.png);
+  background-repeat: no-repeat;
+  background-size: 325px;
+  left: 40%;
+  top: 80px;
+}
+
+.hero-bg.image4 {
+  z-index: 2;
+  opacity: 1;
+  background: url(./yoru_valorant-removebg-preview.png);
+  background-repeat: no-repeat;
+  background-size: 325px;
+  left: 50%;
+  top: 30px;
+}
+
+.hero-bg.image5 {
+  z-index: 1;
+  opacity: 1;
+  background: url(./Credits_to_the_owner___Follow_me_for_more__stay_tuned__For_requests_dm_me__XoXosummerbokv_on_telegram-removebg-preview.png);
+  background-repeat: no-repeat;
+  background-size: 325px;
+  left: 60%;
+}
+
+.guns {
+  position: relative;
+  width: 300px;
+  height: 120px;
+  z-index: 1;
+}
+
+.gun {
+  margin: -40px;
+  top: 150%;
+  width: 550px;
+  transform: translate(10%, 5%) scale(0.95);
+  opacity: 0;
+  will-change: transform opacity;
+}
+
+/* GLASS OVERLAY */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: linear-gradient(to bottom,
+      rgba(5, 5, 5, 0.3),
+      rgba(5, 5, 5, 0.7) 40%,
+      var(--primary-color) 100%);
+  backdrop-filter: blur(3px);
+}
+
+/* CONTENT */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 0 24px;
+}
+
+/* AURAS */
+.hero-aura {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  z-index: 2;
+  animation: floatAura 10s infinite alternate ease-in-out;
+}
+
+.aura-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--secondary-color), transparent 70%);
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.aura-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #4400cc, transparent 70%);
+  bottom: 10%;
+  right: 15%;
+  animation-delay: -5s;
+}
+
+@keyframes floatAura {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(40px, -40px) scale(1.1);
+  }
+}
+
+/* TITLE GLITCH & STYLE */
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  background: linear-gradient(to bottom, #fff 40%, #999 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
+
+  position: relative;
+  display: inline-block;
+}
+
+/* GLITCH EFFECT */
+.hero-title::before,
+.hero-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  /* same gradient */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.8;
+}
+
+.hero-title::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--secondary-color);
+  clip-path: inset(44% 0 61% 0);
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+}
+
+.hero-title::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--accent-color);
+  clip-path: inset(54% 0 21% 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+  }
+
+  20% {
+    clip-path: inset(60% 0 10% 0);
+  }
+
+  40% {
+    clip-path: inset(40% 0 50% 0);
+  }
+
+  60% {
+    clip-path: inset(80% 0 15% 0);
+  }
+
+  80% {
+    clip-path: inset(10% 0 40% 0);
+  }
+
+  100% {
+    clip-path: inset(30% 0 40% 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(15% 0 50% 0);
+  }
+
+  20% {
+    clip-path: inset(45% 0 20% 0);
+  }
+
+  40% {
+    clip-path: inset(10% 0 60% 0);
+  }
+
+  60% {
+    clip-path: inset(50% 0 10% 0);
+  }
+
+  80% {
+    clip-path: inset(25% 0 30% 0);
+  }
+
+  100% {
+    clip-path: inset(70% 0 5% 0);
+  }
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 48px;
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 40px;
+  background: var(--secondary-color);
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Inter", sans-serif;
+  border-radius: 4px;
+  transition: box-shadow 0.3s ease;
+
+  /* Clean up default transforms so GSAP handles movement */
+  transform: none;
+}
+
+.hero-cta:hover {
+  box-shadow: 0 0 30px var(--secondary-color);
+}
