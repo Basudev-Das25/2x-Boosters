@@ -74,9 +74,12 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    /* Text at bottom/left */
-    padding: 60px;
+    padding: 80px 60px 60px 60px;
+    /* Extra top padding for close button */
+    overflow-y: auto;
+    /* Custom scrollbar for better look */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 
     opacity: 0;
     /* Hidden initially for cinematic flow */
@@ -93,6 +96,8 @@
 .modal-info {
     max-width: 600px;
     color: #fff;
+    margin-top: auto;
+    /* Pushes content to bottom if there's space, but starts from top if overflowing */
 }
 
 .modal-info h2 {
@@ -104,13 +109,71 @@
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
+.modal-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.live-badge {
+    background: rgba(255, 70, 85, 0.2);
+    color: #ff4655;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 70, 85, 0.4);
+    box-shadow: 0 0 10px rgba(255, 70, 85, 0.2);
+    animation: live-pulse 2s infinite ease-in-out;
+}
+
+@keyframes live-pulse {
+    0% {
+        opacity: 0.6;
+        box-shadow: 0 0 5px rgba(255, 70, 85, 0.2);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+    }
+
+    100% {
+        opacity: 0.6;
+        box-shadow: 0 0 5px rgba(255, 70, 85, 0.2);
+    }
+}
+
+.stats-loading {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-style: italic;
+    padding: 1rem 0;
+    opacity: 0.7;
+    animation: text-pulse 1.5s infinite;
+}
+
+@keyframes text-pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
 .modal-role {
-    font-family: "Inter", sans-serif;
-    font-size: 1.25rem;
-    color: var(--secondary-color);
+    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
 }
 
 .modal-divider {
@@ -173,6 +236,45 @@
     color: #fff;
 }
 
+/* AGENT ARTWORK */
+.agent-portrait-container {
+    position: absolute;
+    right: -5%;
+    bottom: -10%;
+    width: 60%;
+    height: 120%;
+    pointer-events: none;
+    z-index: -1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    mask-image: linear-gradient(to left, black 40%, transparent 90%),
+        linear-gradient(to top, black 40%, transparent 90%);
+    -webkit-mask-image: linear-gradient(to left, black 40%, transparent 90%),
+        linear-gradient(to top, black 40%, transparent 90%);
+    opacity: 0.8;
+}
+
+.agent-portrait {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(255, 70, 85, 0.3));
+    animation: agent-float 6s infinite ease-in-out;
+}
+
+@keyframes agent-float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.02);
+    }
+}
+
 @media (max-width: 768px) {
     .modal-container {
         aspect-ratio: 9/16;
@@ -181,11 +283,18 @@
     }
 
     .modal-glass-layer {
-        padding: 32px;
-        justify-content: flex-end;
+        padding: 40px 24px;
     }
 
     .modal-info h2 {
         font-size: 2.5rem;
+    }
+
+    .agent-portrait-container {
+        width: 100%;
+        right: 0;
+        opacity: 0.4;
+        mask-image: linear-gradient(to top, black 60%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
     }
 }

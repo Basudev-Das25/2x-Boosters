@@ -10,12 +10,16 @@ const teamMembers = [
     name: "AEDITON",
     role: "Duelist",
     cloudinaryId: "Aediton_player_video_l7c4xh",
+    trackerUrl: "https://tracker.gg/valorant/profile/riot/AEDITONX%2300001/overview",
+    riotId: { name: "AEDITONX", tag: "00001" },
     stats: { "K/D": "1.42", "HS%": "34%", "Main": "Jett" },
     bio: "Aggressive entry fragger known for creating space and highlight-reel plays."
   },
   {
     name: "BERLIN [IGL]",
     role: "Controller",
+    trackerUrl: "https://tracker.gg/valorant/profile/riot/BERLIN%233325/overview",
+    riotId: { name: "BERLIN", tag: "3325" },
     // videoSrc: "...", // Optional: leave undefined to test image fallback
     imageSrc: "/images/characters/clove_-_valorant-removebg-preview.png", // Placeholder
     stats: { "K/D": "1.10", "AST": "12.4", "Main": "Omen" },
@@ -25,6 +29,8 @@ const teamMembers = [
     name: "CUPCAKE",
     role: "Initiator",
     cloudinaryId: "hero-launch_m46mas",
+    trackerUrl: "https://tracker.gg/valorant/profile/riot/Cupcake%23kappu/overview",
+    riotId: { name: "Cupcake", tag: "kappu" },
     stats: { "K/D": "1.25", "ADR": "156", "Main": "Sova" },
     bio: "Info gatherer extraordinaire. Sets up the team for success with perfect lineups."
   },
@@ -32,6 +38,8 @@ const teamMembers = [
     name: "ALSOJOYY",
     role: "Sentinel",
     cloudinaryId: "Alsojoyy_player_video_dwav8d",
+    trackerUrl: "https://tracker.gg/valorant/profile/riot/Alsojoyy%23suii/overview",
+    riotId: { name: "Alsojoyy", tag: "suii" },
     stats: { "K/D": "1.15", "Clutch": "18%", "Main": "Killjoy" },
     bio: "The anchor of the defense. Locks down sites and punishes overaggression."
   },
@@ -39,6 +47,8 @@ const teamMembers = [
     name: "EXEC",
     role: "Flex",
     cloudinaryId: "hero-launch_m46mas",
+    trackerUrl: "https://tracker.gg/valorant/profile/riot/DragonianBD%23GGss/overview",
+    riotId: { name: "DragonianBD", tag: "GGss" },
     stats: { "K/D": "1.30", "Flex": "Yes", "Main": "Kay/O" },
     bio: "Versatile player capable of filling any role the team needs at a high level."
   },

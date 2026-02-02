@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./DetailModal.css";
 import CloudinaryVideo from "../common/CloudinaryVideo";
+import { fetchPlayerStats, fetchAgentArt } from "../../services/StatsService";
 
 const DetailModal = ({ isOpen, onClose, data }) => {
     const modalRef = useRef(null);
@@ -9,12 +10,44 @@ const DetailModal = ({ isOpen, onClose, data }) => {
     const videoRef = useRef(null);
     const [videoEnded, setVideoEnded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [liveStats, setLiveStats] = useState(null);
+    const [loadingLive, setLoadingLive] = useState(false);
+    const [agentArt, setAgentArt] = useState(null);
 
     // Reset state when data changes or opens
     useEffect(() => {
         if (isOpen) {
             setVideoEnded(false);
             setIsLoading(true);
+            setLiveStats(null);
+            setAgentArt(null);
+
+            // Fetch live stats if Riot ID is available
+            if (data?.riotId) {
+                setLoadingLive(true);
+                fetchPlayerStats(data.riotId.name, data.riotId.tag)
+                    .then(stats => {
+                        if (stats) {
+                            setLiveStats(stats);
+                            // Fetch agent art once we have the live main agent
+                            if (stats.Main && stats.Main !== "N/A") {
+                                fetchAgentArt(stats.Main).then(art => setAgentArt(art));
+                            }
+                        } else if (data.stats?.Main) {
+                            // Fallback to hardcoded main agent if API fails
+                            fetchAgentArt(data.stats.Main).then(art => setAgentArt(art));
+                        }
+                    })
+                    .catch(() => {
+                        if (data.stats?.Main) {
+                            fetchAgentArt(data.stats.Main).then(art => setAgentArt(art));
+                        }
+                    })
+                    .finally(() => setLoadingLive(false));
+            } else if (data?.stats?.Main) {
+                // If no Riot ID, still try to fetch art for the hardcoded main
+                fetchAgentArt(data.stats.Main).then(art => setAgentArt(art));
+            }
 
             // Handle both traditional videoSrc and Cloudinary cloudinaryId
             const hasVideo = !!(data?.videoSrc || data?.cloudinaryId);
@@ -140,26 +173,62 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                 {/* GLASS LAYER (Appears after video or immediately if no video) */}
                 <div className={`modal-glass-layer ${!isVideo ? 'visible' : ''}`}>
                     <div className="modal-info">
-                        <h2>{data.name}</h2>
+                        <div className="modal-header-row">
+                            <h2>{data.name}</h2>
+                            {liveStats && <span className="live-badge">LIVE</span>}
+                        </div>
                         <p className="modal-role">{data.role}</p>
 
                         <div className="modal-divider" />
 
                         <div className="modal-details">
-                            {data.stats && Object.entries(data.stats).map(([key, value]) => (
-                                <div key={key} className="stat-item">
-                                    <span className="stat-label">{key}</span>
-                                    <span className="stat-value">{value}</span>
-                                </div>
-                            ))}
+                            {loadingLive ? (
+                                <div className="stats-loading">Fetching live stats...</div>
+                            ) : (
+                                <>
+                                    {Object.entries({ ...data.stats, ...liveStats }).map(([key, value]) => (
+                                        key !== "isLive" && (
+                                            <div key={key} className="stat-item">
+                                                <span className="stat-label">{key}</span>
+                                                <span className="stat-value">{value}</span>
+                                            </div>
+                                        )
+                                    ))}
+                                    {liveStats?.Rank && (
+                                        <div className="stat-item">
+                                            <span className="stat-label">Current Rank</span>
+                                            <span className="stat-value">{liveStats.Rank}</span>
+                                        </div>
+                                    )}
+                                </>
+                            )}
 
                             {data.bio && <p className="modal-bio">{data.bio}</p>}
                         </div>
 
                         <div className="modal-actions">
-                            <button className="modal-cta">View Profile</button>
+                            {data.trackerUrl ? (
+                                <a
+                                    href={data.trackerUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="modal-cta"
+                                    style={{ textDecoration: 'none', display: 'inline-block' }}
+                                >
+                                    View Tracker.gg
+                                </a>
+                            ) : (
+                                <button className="modal-cta">View Profile</button>
+                            )}
                         </div>
                     </div>
+
+                    {/* AGENT ARTWORK */}
+                    {agentArt && (
+                        <div className="agent-portrait-container">
+                            <img src={agentArt} alt="Agent Portrait" className="agent-portrait" />
+                        </div>
+                    )}
                 </div>
 
             </div>
