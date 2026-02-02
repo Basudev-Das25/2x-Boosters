@@ -5,52 +5,28 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MagneticButton = ({ children, className, href }) => {
-    const btnRef = useRef(null);
-
-    useEffect(() => {
-        const btn = btnRef.current;
-        if (!btn) return;
-
-        const handleMouseMove = (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            gsap.to(btn, {
-                x: x * 0.3,
-                y: y * 0.3,
-                duration: 0.3,
-                ease: "power2.out"
-            });
-        };
-
-        const handleMouseLeave = () => {
-            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.4)" });
-        };
-
-        btn.addEventListener("mousemove", handleMouseMove);
-        btn.addEventListener("mouseleave", handleMouseLeave);
-
-        return () => {
-            btn.removeEventListener("mousemove", handleMouseMove);
-            btn.removeEventListener("mouseleave", handleMouseLeave);
-        };
-    }, []);
-
-    return (
-        <a ref={btnRef} href={href} className={className}>
-            <span style={{ position: 'relative', zIndex: 2 }}>{children}</span>
-        </a>
-    );
-};
+import MagneticButton from '../../components/common/MagneticButton';
 
 const Hero = () => {
     const sectionRef = useRef(null);
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
+    const lightRef = useRef(null);
 
     useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (!lightRef.current) return;
+            const { clientX, clientY } = e;
+            gsap.to(lightRef.current, {
+                x: clientX,
+                y: clientY,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+
         const ctx = gsap.context(() => {
             // Entrance
             const tl = gsap.timeline();
@@ -65,11 +41,15 @@ const Hero = () => {
                 );
         }, sectionRef);
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
     }, []);
 
     return (
         <section id="hero" className="hero" ref={sectionRef}>
+            <div ref={lightRef} className="hero-light-follow" />
 
             {/* VIDEO BACKGROUND */}
             <video

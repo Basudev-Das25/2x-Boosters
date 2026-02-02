@@ -1,3 +1,4 @@
+import MagneticButton from '../common/MagneticButton';
 import './Navbar.css'
 
 const Navbar = () => {
@@ -11,10 +12,10 @@ const Navbar = () => {
 
                 {/* links */}
                 <ul className='nav-links'>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#creators">Creators</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><MagneticButton href="#hero">Home</MagneticButton></li>
+                    <li><MagneticButton href="#team">Team</MagneticButton></li>
+                    <li><MagneticButton href="#creators">Creators</MagneticButton></li>
+                    <li><MagneticButton href="#contact">Contact</MagneticButton></li>
                 </ul>
             </div>
         </nav>

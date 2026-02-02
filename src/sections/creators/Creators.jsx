@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Creators.css";
 import DetailModal from "../../components/modal/DetailModal";
+import Reveal from "../../components/common/Reveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,8 +118,12 @@ const Creators = () => {
     <>
       <section id="creators" ref={sectionRef} className="creators">
         <div className="creators-header">
-          <h2>Creators</h2>
-          <p>Content creators representing the team worldwide</p>
+          <Reveal>
+            <h2>Creators</h2>
+          </Reveal>
+          <Reveal delay={0.2} blur={true}>
+            <p>Content creators representing the team worldwide</p>
+          </Reveal>
         </div>
 
         <div className="creators-grid">

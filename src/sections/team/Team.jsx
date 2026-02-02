@@ -3,6 +3,7 @@ import "./Team.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DetailModal from "../../components/modal/DetailModal";
+import Reveal from "../../components/common/Reveal";
 
 const teamMembers = [
   {
@@ -131,8 +132,12 @@ const Team = () => {
     <>
       <section id="team" ref={sectionRef} className="team">
         <div className="team-header">
-          <h2>Pro Team</h2>
-          <p>Elite roster competing at the highest level</p>
+          <Reveal>
+            <h2>Pro Team</h2>
+          </Reveal>
+          <Reveal delay={0.2} blur={true}>
+            <p>Elite roster competing at the highest level</p>
+          </Reveal>
         </div>
 
         <div className="team-grid">
