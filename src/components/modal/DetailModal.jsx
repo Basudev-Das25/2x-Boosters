@@ -61,6 +61,11 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                     video.play().catch(() => {
                         // playback failed
                     });
+
+                    // Trigger the cinematic reveal after a short delay since video is now looping
+                    setTimeout(() => {
+                        handleCinematicReveal();
+                    }, 1500);
                 };
 
                 // Check if already ready
@@ -108,8 +113,8 @@ const DetailModal = ({ isOpen, onClose, data }) => {
         }
     }, [isOpen]);
 
-    // Cinematic Flow: Video Ends -> Blur -> Text
-    const handleVideoEnd = () => {
+    // Cinematic Flow: Reveal Blur -> Text while video loops
+    const handleCinematicReveal = () => {
         setVideoEnded(true);
 
         // Animate the blur overlay appearance
@@ -153,7 +158,7 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                             publicId={data.cloudinaryId}
                             videoRef={videoRef}
                             className="modal-video"
-                            onEnded={handleVideoEnd}
+                            loop={true}
                         />
                     ) : data.videoSrc ? (
                         <video
@@ -162,8 +167,8 @@ const DetailModal = ({ isOpen, onClose, data }) => {
                             className="modal-video"
                             muted
                             playsInline
+                            loop
                             preload="auto"
-                            onEnded={handleVideoEnd}
                         />
                     ) : (
                         <div className="modal-image" style={{ backgroundImage: `url(${data.imageSrc})` }} />
