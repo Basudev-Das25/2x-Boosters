@@ -11,6 +11,7 @@ const teamMembers = [
     role: "Duelist",
     cloudinaryId: "Aediton_player_video_l7c4xh",
     trackerUrl: "https://tracker.gg/valorant/profile/riot/AEDITONX%2300001/overview",
+    popoutImage: "/images/agents/jett_popout.jpg",
     riotId: { name: "AEDITONX", tag: "00001" },
     stats: { "K/D": "1.42", "HS%": "34%", "Main": "Jett" },
     bio: "Aggressive entry fragger known for creating space and highlight-reel plays."
@@ -19,6 +20,7 @@ const teamMembers = [
     name: "BERLIN [IGL]",
     role: "Controller",
     trackerUrl: "https://tracker.gg/valorant/profile/riot/BERLIN%233325/overview",
+    popoutImage: "/images/agents/omen_popout.jpg",
     riotId: { name: "BERLIN", tag: "3325" },
     // videoSrc: "...", // Optional: leave undefined to test image fallback
     imageSrc: "/images/characters/clove_-_valorant-removebg-preview.png", // Placeholder
@@ -30,8 +32,9 @@ const teamMembers = [
     role: "Initiator",
     cloudinaryId: "hero-launch_m46mas",
     trackerUrl: "https://tracker.gg/valorant/profile/riot/Cupcake%23kappu/overview",
+    popoutImage: "/images/agents/Fade_popout.jpg",
     riotId: { name: "Cupcake", tag: "kappu" },
-    stats: { "K/D": "1.25", "ADR": "156", "Main": "Sova" },
+    stats: { "K/D": "1.25", "ADR": "156", "Main": "Fade" },
     bio: "Info gatherer extraordinaire. Sets up the team for success with perfect lineups."
   },
   {
@@ -39,7 +42,8 @@ const teamMembers = [
     role: "Sentinel",
     cloudinaryId: "Alsojoyy_player_video_dwav8d",
     trackerUrl: "https://tracker.gg/valorant/profile/riot/Alsojoyy%23suii/overview",
-    riotId: { name: "Alsojoyy", tag: "suii" },
+    popoutImage: "/images/agents/killjoy_popout.jpg",
+    riotId: { name: "ALSOJOYY", tag: "suii" }, // Fixed casing consistency too
     stats: { "K/D": "1.15", "Clutch": "18%", "Main": "Killjoy" },
     bio: "The anchor of the defense. Locks down sites and punishes overaggression."
   },
@@ -48,8 +52,9 @@ const teamMembers = [
     role: "Flex",
     cloudinaryId: "hero-launch_m46mas",
     trackerUrl: "https://tracker.gg/valorant/profile/riot/DragonianBD%23GGss/overview",
+    popoutImage: "/images/agents/cypher_popout.jpg",
     riotId: { name: "DragonianBD", tag: "GGss" },
-    stats: { "K/D": "1.30", "Flex": "Yes", "Main": "Kay/O" },
+    stats: { "K/D": "1.30", "Flex": "Yes", "Main": "Cypher" },
     bio: "Versatile player capable of filling any role the team needs at a high level."
   },
 ];
@@ -95,11 +100,16 @@ const TeamCard = ({ member, onClick }) => {
       onMouseLeave={resetTilt}
       onClick={() => onClick(member)}
     >
-      <div className="player-image" />
+      <div className="card-inner">
+        <div className="card-bg" />
+        <div className="character-popout">
+          <img src={member.popoutImage} alt={member.name} />
+        </div>
 
-      <div className="player-info">
-        <h3>{member.name}</h3>
-        <span>{member.role}</span>
+        <div className="player-info">
+          <h3>{member.name}</h3>
+          <span>{member.role}</span>
+        </div>
       </div>
     </div>
   );
